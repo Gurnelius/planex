@@ -1,0 +1,30 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    {% for video in videos%}
+        <div class="col-md-4">
+            <div>
+                <a href="{{video.id}}">
+                <img class="img-thumbnail " src="{{ video.thumbnail_attrs.src }}"
+                alt="{{ video.thumbnail_attrs.alt }}" 
+                width="100%"
+                height="{{ video.thumbnail_attrs.height}}" /></a>
+                <span class="text-end">{{video.duration}}</span>
+            </div>
+
+            <div><p>{{video.title}}</p></div>
+            <div><p>{{video.user}}</p></div>
+            <div><p>{{video.views}}</p></div>
+            <div><p>{{video.upload_date}}</p></div>
+        </div>
+                
+    {% endfor%}
+    
+    <button data-page={{page.id}} data-action="more" class="btn btn-outline-secondary">Load More Videos</button>
+</div>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "./base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    {% if title %}
+        <div class="dbox">
+            <div>
+                    <iframe width="800" height="450" src="https://www.youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="desl" class="v-about">
+                <p class="v-title">{{ title }}</p>
+                <section class="infos">
+                    <li>Duration <b>{{ duration }}</b></li>
+                    <li>Views <b>{{ views }}</b></li>
+
+                </section>
+            </div>
+        </div>
+
+        <div id="m-show">
+            <p class="v-title">{{ title }}</p>
+        </div>
+        <div>
+
+            <table>
+                <tr>
+                    <th scope="col">Resolution</th>
+                    <th scope="col">File Size</th>
+                    <th scope="col">Extension</th>
+                    <th scope="col">Download</th>
+                    <th scope="col">Vcodec</th>
+                    <th scope="col">Acodec</th>
+                </tr>
+                <tr>
+                    {% for stream in streams %}
+                        <tr>
+                            <td>{{ stream.resolution }}</td>
+                            <td>{{ stream.file_size }}</td>
+                            <td>{{ stream.extension }}</td>
+                            <td><a href="{{ stream.video_url }}" style="text-decoration: none;"
+                                   download="{{ title }}.{{ extension }}" target="_blank">Download <i
+                                    class=" fa fa-download"></i></a></td>
+                            <td>{{stream.vcodec}}</td>
+                            <td>{%if stream.acodec == 'none' %}
+                                <i class='fas fa-volume-mute' style='font-size:24px'></i>{{stream.acodec }}
+                                {%else %}
+                                <i class='fas fa-volume-up' style='font-size:24px'></i>{{stream.acodec }}
+                                {%endif%}
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tr>
+            </table>
+
+            {% comment %} <p class="h3 text-center mt-5 mb-5">Audio Only</p>
+            <table class="table mt-5 mb-5">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">File Size</th>
+                    <th scope="col">Extension</th>
+                    <th scope="col">Download</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for stream in stream_audio %}
+                    <tr>
+                        <td>{{ stream.file_size }}</td>
+                        <td>{{ stream.extension }}</td>
+                        <td><a href="{{ stream.video_url }}" style="text-decoration: none;"
+                               download="{{ title }}.{{ extension }}" target="_blank">Download <i
+                                class=" fa fa-download"></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table> {% endcomment %}
+
+            {##}
+            {#            <p class="h3 text-center mt-5 mb-5">Video Only</p>#}
+            {#            <table class="table mt-5">#}
+            {#                <thead class="thead-light">#}
+            {#                <tr>#}
+            {#                    <th scope="col">Resolution</th>#}
+            {#                    <th scope="col">File Size</th>#}
+            {#                    <th scope="col">Extension</th>#}
+            {#                    <th scope="col" >Download</th>#}
+            {#                </tr>#}
+            {#                </thead>#}
+            {#                <tbody>#}
+            {#                {% for stream in stream_video %}#}
+            {#                    <tr>#}
+            {#                        <td>{{ stream.resolution }}</td>#}
+            {#                        <td>{{ stream.file_size }}</td>#}
+            {#                        <td>{{ stream.extension }}</td>#}
+            {#                        <td><a href="{{ stream.video_url }}" style="text-decoration: none;"#}
+            {#                               download="{{ title }}.{{ extension }}" target="_blank">Download <i#}
+            {#                                class=" fa fa-download"></i></a></td>#}
+            {#                    </tr>#}
+            {#                {% endfor %}#}
+            {#                </tbody>#}
+            {#            </table>#}
+            {##}
+        </div>
+
+    <div>
+        {{meta}}
+    </div>
+    {% endif %}
+
+
+{% endblock %}

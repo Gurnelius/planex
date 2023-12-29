@@ -1,0 +1,28 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual Environment
+venv/
+
+# Database
+db.sqlite3
+
+# IDE/Editor Files
+.vscode/
+.idea/
+*.log
+
+# Django Configuration
+.env
+settings/local.py
+
+# Static and Media Files
+static/
+media/
+
+# Dependency Management
+*.pyc
+
+# Miscellaneous
+.DS_Store

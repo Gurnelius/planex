@@ -1,0 +1,87 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div>
+    <iframe width="800" height="450" src="https://www.youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+<div>
+<button data-video={{video_id}} data-action="download" id="download-links-btn" class="btn btn-outline-secondary">Download Links</button>
+</div>
+<form method="POST">
+{% csrf_token %}
+<div id='format-btns-wrapper' class=" invisible">
+    <button data-video={{video_id}} data-format="360p" class="btn btn-outline-secondary format-btn">360p</button> 
+    <button data-video={{video_id}} data-format="480p" class="btn btn-outline-secondary format-btn">480p</button> 
+<div>
+
+    
+</form>
+{% comment %} <form>
+    {% csrf_token%}
+    <button type="button" id="btn" onclick="download()" class="btn btn-outline-secondary">Download Links</button>
+</form> {% endcomment %}
+
+<script>
+    var downloadLinksBtn = document.getElementById('download-links-btn')
+    var formatBtns = document.getElementsByClassName('format-btn')
+
+    // Open video formats
+    downloadLinksBtn.addEventListener('click', function(){
+        console.log("Cliked download link")
+        document.getElementById('format-btns-wrapper').classList.remove('invisible')
+    });     
+
+    // Open video formats
+downloadLinksBtn.addEventListener('click', function(){
+    console.log("Cliked download link")
+    document.getElementById('format-btns-wrapper').classList.remove('invisible')
+});  
+
+for(var i=0; i < formatBtns.length; i++){
+    formatBtns[i].addEventListener('click', function(){
+        var videoId = '{{video_id}}'
+        var format = this.dataset.format
+
+        console.log('Video_id: ', videoId, 'Format: ', format)
+
+    })
+}
+
+function download(videoId, format){
+    console.log("Sending download format...")
+
+    csrftoken = document.getElementsByTagName('input')[0].value
+
+    console.log("csrf_token :", csrftoken)
+    var url = '/download/'
+
+    fetch(url, {
+        method:"POST",
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body:JSON.stringify({'video_id': videoId, 'format':format})
+    })
+    .then((response) =>{
+        return response.json()
+    })
+    .then((data) => {
+        console.log('Success: ', data);
+             alert("Download complete");
+
+             //Reset the cart cookies
+             
+             // Redirect user to shopping page
+             //window.location.href="{% url 'home' %}"
+    })
+}
+
+</script>
+
+
+{% endblock %}

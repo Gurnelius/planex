@@ -1,0 +1,15 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+    {% for Video_id in Video_ids%}
+    <div class="row">
+        <div>{{Video_id}}</div>
+    </div>
+    <button data-page={{page.id}} data-action="more" class="btn btn-outline-secondary">Load More Videos</button>
+    {%endfor%}
+</div>
+
+{% endblock %}
