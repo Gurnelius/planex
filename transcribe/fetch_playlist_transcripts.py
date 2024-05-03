@@ -1,8 +1,13 @@
 import os
 from googleapiclient.discovery import build
+from dotenv import load_dotenv
 
-# Set up your API key
-API_KEY = "YOUR_API_KEY_HERE"
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the environment variables
+API_KEY = os.getenv("API_KEY")
+
 
 # Function to fetch the transcript for a video
 def get_transcript(video_id):
