@@ -26,3 +26,6 @@ media/
 
 # Miscellaneous
 .DS_Store
+
+# Environment variable
+*.env
