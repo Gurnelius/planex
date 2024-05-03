@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     
     'home',
+    'transcribe',
 ]
 
 MIDDLEWARE = [
